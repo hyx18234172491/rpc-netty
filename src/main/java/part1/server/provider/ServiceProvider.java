@@ -27,7 +27,7 @@ public class ServiceProvider {
         this.serviceRegister=new ZKServiceRegister();
     }
 
-    public void provideServiceInterface(Object service) {
+    public void provideServiceInterface(Object service,boolean cantry) {
         String serviceName = service.getClass().getName();  // part1.common.service.Impl.UserServiceImpl
         Class<?>[] interfaceName = service.getClass().getInterfaces();
         // 也就是说这里是这个类实现的所有接口的集合
@@ -35,7 +35,7 @@ public class ServiceProvider {
             interfaceProvider.put(clazz.getName(), service);
             // System.out.println(clazz.getName());            // part1.common.service.UserService
             //在注册中心注册服务
-            serviceRegister.register(clazz.getName(),new InetSocketAddress(host,port));
+            serviceRegister.register(clazz.getName(),new InetSocketAddress(host,port),cantry);
         }
     }
 

@@ -1,7 +1,10 @@
 package part1.client.proxy;
 
+import part1.client.retry.guavaRetry;
 import part1.client.rpcClient.impl.SimpleSocketRpcCilent;
 import lombok.AllArgsConstructor;
+import part1.client.serviceCenter.ServiceCenter;
+import part1.client.serviceCenter.impl.ZKServiceCenter;
 import part1.common.Message.RpcRequest;
 import part1.common.Message.RpcResponse;
 import part1.client.rpcClient.RpcClient;
@@ -18,14 +21,16 @@ public class ClientProxy implements InvocationHandler {
     private int port;
 
     private RpcClient rpcClient;
+    private ServiceCenter serviceCenter;
 
     public ClientProxy() throws InterruptedException {
-        rpcClient=new NettyRpcClient();
+        serviceCenter=new ZKServiceCenter();
+        rpcClient=new NettyRpcClient(serviceCenter);
     }
     public ClientProxy(String host,int port,int choose) throws InterruptedException {
         switch (choose){
             case 0:
-                rpcClient=new NettyRpcClient();
+                rpcClient=new NettyRpcClient(this.serviceCenter);
                 break;
             case 1:
                 rpcClient=new SimpleSocketRpcCilent(host,port);
@@ -38,10 +43,16 @@ public class ClientProxy implements InvocationHandler {
                 .methodName(method.getName())
                 .params(args)
                 .paramsType(method.getParameterTypes()).build();
-
-        // 发送出去
         //数据传输
-        RpcResponse response= rpcClient.sendRequest(request);
+        RpcResponse response;
+        //后续添加逻辑：为保持幂等性，只对白名单上的服务进行重试
+        if (serviceCenter.checkRetry(request.getInterfaceName())){
+            //调用retry框架进行重试操作
+            response=new guavaRetry().sendServiceWithRetry(request,rpcClient);
+        }else {
+            //只调用一次
+            response= rpcClient.sendRequest(request);
+        }
         return response.getData();
     }
 
