@@ -50,7 +50,7 @@ public class ZKServiceCenter implements ServiceCenter {
                 serviceList=client.getChildren().forPath("/" + serviceName);
             }
             // 这里默认用的第一个，后面加负载均衡
-            String address = new ConsistencyHashBalance().balance(serviceList);
+            String address = new ConsistencyHashBalance().balance(serviceList); // todo:是否是每次都new一个？
             return parseAddress(address);
         } catch (Exception e) {
             e.printStackTrace();
