@@ -1,4 +1,4 @@
-package part1.server.netty.server;
+package part1.server.server;
 
 /**
  * @author wxx

@@ -1,10 +1,10 @@
-package part1.server.netty.server;
+package part1.server.server;
 
 
 import part1.common.service.Impl.UserServiceImpl;
 import part1.common.service.UserService;
-import part1.server.netty.provider.ServiceProvider;
-import part1.server.netty.server.impl.NettyRPCRPCServer;
+import part1.server.provider.ServiceProvider;
+import part1.server.server.impl.NettyRPCRPCServer;
 
 /**
  * @author wxx
@@ -15,7 +15,7 @@ public class TestServer {
     public static void main(String[] args) {
         UserService userService=new UserServiceImpl();
 
-        ServiceProvider serviceProvider=new ServiceProvider();
+        ServiceProvider serviceProvider=new ServiceProvider("127.0.0.1",9999);
         serviceProvider.provideServiceInterface(userService);
 
         RpcServer rpcServer=new NettyRPCRPCServer(serviceProvider);

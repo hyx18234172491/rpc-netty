@@ -5,7 +5,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.AllArgsConstructor;
 import part1.common.Message.RpcRequest;
 import part1.common.Message.RpcResponse;
-import part1.server.netty.provider.ServiceProvider;
+import part1.server.provider.ServiceProvider;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

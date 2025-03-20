@@ -1,8 +1,8 @@
-package part1.client.proxy.rpcClient.impl;
+package part1.client.rpcClient.impl;
 
 import part1.common.Message.RpcRequest;
 import part1.common.Message.RpcResponse;
-import part1.client.proxy.rpcClient.RpcClient;
+import part1.client.rpcClient.RpcClient;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

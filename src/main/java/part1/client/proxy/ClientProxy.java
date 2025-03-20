@@ -1,11 +1,11 @@
 package part1.client.proxy;
 
-import part1.client.proxy.rpcClient.impl.SimpleSocketRpcCilent;
+import part1.client.rpcClient.impl.SimpleSocketRpcCilent;
 import lombok.AllArgsConstructor;
 import part1.common.Message.RpcRequest;
 import part1.common.Message.RpcResponse;
-import part1.client.proxy.rpcClient.RpcClient;
-import part1.client.proxy.rpcClient.impl.NettyRpcClient;
+import part1.client.rpcClient.RpcClient;
+import part1.client.rpcClient.impl.NettyRpcClient;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -18,10 +18,14 @@ public class ClientProxy implements InvocationHandler {
     private int port;
 
     private RpcClient rpcClient;
+
+    public ClientProxy(){
+        rpcClient=new NettyRpcClient();
+    }
     public ClientProxy(String host,int port,int choose){
         switch (choose){
             case 0:
-                rpcClient=new NettyRpcClient(host,port);
+                rpcClient=new NettyRpcClient();
                 break;
             case 1:
                 rpcClient=new SimpleSocketRpcCilent(host,port);

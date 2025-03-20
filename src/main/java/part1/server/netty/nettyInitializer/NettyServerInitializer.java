@@ -11,7 +11,7 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 import lombok.AllArgsConstructor;
 import part1.server.netty.handler.NettyRPCServerHandler;
-import part1.server.netty.provider.ServiceProvider;
+import part1.server.provider.ServiceProvider;
 
 /**
  * @author wxx

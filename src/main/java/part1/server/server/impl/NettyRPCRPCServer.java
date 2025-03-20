@@ -1,4 +1,4 @@
-package part1.server.netty.server.impl;
+package part1.server.server.impl;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -6,8 +6,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.AllArgsConstructor;
 import part1.server.netty.nettyInitializer.NettyServerInitializer;
-import part1.server.netty.provider.ServiceProvider;
-import part1.server.netty.server.RpcServer;
+import part1.server.provider.ServiceProvider;
+import part1.server.server.RpcServer;
 
 /**
  * @author wxx

@@ -1,10 +1,10 @@
-package part1.server.netty.server.impl;
+package part1.server.server.impl;
 
 
 import lombok.AllArgsConstructor;
-import part1.server.netty.provider.ServiceProvider;
-import part1.server.netty.server.RpcServer;
-import part1.server.netty.server.work.WorkThread;
+import part1.server.provider.ServiceProvider;
+import part1.server.server.RpcServer;
+import part1.server.server.work.WorkThread;
 
 import java.io.IOException;
 import java.net.ServerSocket;

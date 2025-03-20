@@ -1,4 +1,4 @@
-package part1.client.proxy.rpcClient;
+package part1.client.rpcClient;
 
 import part1.common.Message.RpcRequest;
 import part1.common.Message.RpcResponse;
