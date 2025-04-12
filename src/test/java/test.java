@@ -1,6 +1,5 @@
-import part1.client.proxy.ClientProxy;
-import part1.common.pojo.User;
-import part1.common.service.UserService;
+import client.proxy.ClientProxy;
+import common.service.UserService;
 
 public class test {
     public static void main(String[] args) throws InterruptedException {
