@@ -7,14 +7,9 @@ public class test {
         ClientProxy clientProxy=new ClientProxy();
         UserService proxy=clientProxy.getProxy(UserService.class);
 
-        for (int i=0;i<100;i++){
-            User user = proxy.getUserByUserId(1);
-            System.out.println("从服务端得到的user="+user.toString());
-
-            User u=User.builder().id(100).userName("wxx").sex(true).build();
-            Integer id = proxy.insertUserId(u);
-            System.out.println("向服务端插入user的id"+id);
-            System.out.println(i);
+        for (int i=0;i<1;i++){
+            System.out.println(proxy.getClass());
+            System.out.println(proxy.getClass().getName());
         }
     }
 }
