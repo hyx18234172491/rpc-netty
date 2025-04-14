@@ -37,7 +37,36 @@ public class SpiLoader {
         LOAD_CLASS_LIST.stream().forEach(SpiLoader::loadByClass);
     }
 
-    private static Map<String,Class<?>> loadByClass(Class<?> loadClass) {
+    // 获得指定接口的 指定实现类实例
+    // TODO:存在线程安全问题
+    public static <T> T getInstance(Class<?> tClass,String key){
+        String tClassName = tClass.getName();
+        Map<String, Class<?>> tClassMap = loaderMap.get(tClassName);
+        // 判断有没有该接口的Spi
+        if(tClassMap==null){
+            throw new RuntimeException(String.format("SpiLoader 未加载 %s 类型",tClassName));
+        }
+        // 该接口的Spi是否有对应key的实例
+        if(!tClassMap.containsKey(key)){
+            throw new RuntimeException(String.format("SpiLoader %s 类型，未加载 key=% s的类型",tClassName,key));
+        }
+        Class<?> implClass = tClassMap.get(key);
+
+        String implClassName = implClass.getName();
+        if(!instanceCache.containsKey(implClassName)){
+            try{
+                instanceCache.put(implClassName,implClass.newInstance());
+            }catch (Exception e){
+                String errorMsg = String.format("类 % s 实例化失败",implClassName);
+                throw new RuntimeException(errorMsg,e);
+            }
+        }
+        return (T) instanceCache.get(implClassName);
+
+    }
+
+
+    public static Map<String,Class<?>> loadByClass(Class<?> loadClass) {
         Map<String, Class<?>> keyClassMap = new HashMap<>();
         // 扫描所有目录下所，类全名为loadClassloadClass的文件
         Arrays.stream(SCAN_DIRS)
