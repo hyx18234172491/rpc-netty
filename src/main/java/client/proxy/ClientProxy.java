@@ -42,7 +42,7 @@ public class ClientProxy implements InvocationHandler {
         RpcRequest request = RpcRequest.builder().interfaceName(method.getDeclaringClass().getName())
                 .methodName(method.getName())
                 .params(args)
-                .paramsType(method.getParameterTypes()).build();
+                .paramsTypes(method.getParameterTypes()).build();
         //数据传输
         RpcResponse response;
         //后续添加逻辑：为保持幂等性，只对白名单上的服务进行重试

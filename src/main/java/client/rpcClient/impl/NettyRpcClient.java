@@ -5,6 +5,9 @@ import client.serviceCenter.ServiceCenter;
 import common.Message.RpcRequest;
 import common.Message.RpcResponse;
 import client.netty.nettyInitializer.NettyClientInitializer;
+import common.protocal.ProtocolConstant;
+import common.protocal.ProtocolMessage;
+import common.protocal.ProtocolMessageSerializerEnum;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -34,6 +37,13 @@ public class NettyRpcClient implements RpcClient {
     }
     @Override
     public RpcResponse sendRequest(RpcRequest request) {
+        ProtocolMessage<RpcRequest> protocolMessage = new ProtocolMessage<>();
+        ProtocolMessage.Header header = protocolMessage.getHeader();
+        header.setMagic(ProtocolConstant.PROTOCOL_MAGIC);
+        header.setVersion(ProtocolConstant.PROTOCOL_VERSION);
+        header.setSerializer((byte) ProtocolMessageSerializerEnum.JSON.getKey());
+        protocolMessage.setBody(request);
+
         InetSocketAddress address = serviceCenter.serviceDiscovery(request.getInterfaceName());
         String host = address.getHostName();
         int port = address.getPort();
