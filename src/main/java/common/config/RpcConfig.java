@@ -1,6 +1,6 @@
 package common.config;
 
-import common.serializer.mySerializer.SerializerKeys;
+import common.serializer.SerializerKeys;
 import lombok.Data;
 
 @Data

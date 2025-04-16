@@ -48,7 +48,7 @@ public class NettyRPCServerHandler extends SimpleChannelInboundHandler<RpcReques
         //反射调用方法
         Method method=null;
         try {
-            method= service.getClass().getMethod(rpcRequest.getMethodName(), rpcRequest.getParamsType());
+            method= service.getClass().getMethod(rpcRequest.getMethodName(), rpcRequest.getParamsTypes());
             Object invoke=method.invoke(service,rpcRequest.getParams());
             return RpcResponse.sussess(invoke);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {

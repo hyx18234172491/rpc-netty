@@ -27,5 +27,5 @@ public class RpcRequest implements Serializable {
     //参数列表
     private Object[] params;
     //参数类型
-    private Class<?>[] paramsType;
+    private Class<?>[] paramsTypes;
 }

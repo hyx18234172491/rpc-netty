@@ -2,9 +2,9 @@ package client.netty.nettyInitializer;
 
 
 import client.netty.handler.NettyClientHandler;
-import common.serializer.myCode.MyDecoder;
-import common.serializer.myCode.MyEncoder;
-import common.serializer.mySerializer.JsonSerializer;
+import common.protocal.ProtocolDecoder;
+import common.protocal.ProtocolEncoder;
+import common.serializer.JsonSerializer;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -19,8 +19,8 @@ public class NettyClientInitializer extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
         //使用自定义的编/解码器
-        pipeline.addLast(new MyDecoder());
-        pipeline.addLast(new MyEncoder(new JsonSerializer()));
+        pipeline.addLast(new ProtocolDecoder());
+        pipeline.addLast(new ProtocolEncoder(new JsonSerializer()));
         pipeline.addLast(new NettyClientHandler());
     }
 }

@@ -1,2 +1,2 @@
-json=common.serializer.mySerializer.Serializer
-jdk=common.serializer.mySerializer.ObjectSerializer
+json=common.serializer.Serializer
+jdk=common.serializer.ObjectSerializer

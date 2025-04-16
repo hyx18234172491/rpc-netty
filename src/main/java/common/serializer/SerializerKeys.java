@@ -1,4 +1,4 @@
-package common.serializer.mySerializer;
+package common.serializer;
 
 /*
 * 序列化器的键名

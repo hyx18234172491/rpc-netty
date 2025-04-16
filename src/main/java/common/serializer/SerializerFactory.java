@@ -1,9 +1,6 @@
-package common.serializer.mySerializer;
+package common.serializer;
 
 import common.spi.SpiLoader;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /*
 * 序列化器的工厂

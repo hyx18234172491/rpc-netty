@@ -20,15 +20,17 @@ public class NettyRPCRPCServer implements RpcServer {
     @Override
     public void start(int port) {
         // netty 服务线程组boss负责建立连接， work负责具体的请求
+        // 这里一个线程+一个selector就叫一个eventloop
         NioEventLoopGroup bossGroup = new NioEventLoopGroup();
         NioEventLoopGroup workGroup = new NioEventLoopGroup();
         System.out.println("netty服务端启动了");
         try {
-            //启动netty服务器
+            //启动netty服务器, 负责组装netty组件
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             //初始化
             serverBootstrap.group(bossGroup,workGroup).channel(NioServerSocketChannel.class)
                     //NettyClientInitializer这里 配置netty对消息的处理机制
+                    // 这个childHandler就是worker线程做的事情
                     .childHandler(new NettyServerInitializer(serviceProvider));
             //同步堵塞
             ChannelFuture channelFuture=serverBootstrap.bind(port).sync();
